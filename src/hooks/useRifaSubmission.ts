@@ -96,8 +96,12 @@ export function useRifaSubmission() {
       if (respJson.error) throw new Error('Error enviando WhatsApp: ' + JSON.stringify(respJson.error));
 
       setSuccess(true);
-    } catch (err: any) {
-      setError(err.message || 'Error inesperado');
+  } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Error inesperado');
+      }
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,7 @@
 
 import Image from 'next/image';
 import './footer.css';
+import Link from "next/link";
 
 export function Footer() {
   return (
@@ -15,9 +16,9 @@ export function Footer() {
         <div className="footer-section footer-nav">
           <div className="footer-nav-title">Secciones</div>
           <ul className="footer-nav-list">
-            <li><a href="/" className="footer-link">Inicio</a></li>
-            <li><a href="/nosotros" className="footer-link">Nosotros</a></li>
-            <li><a href="/rifa-solidaria" className="footer-link">Rifa Solidaria</a></li>
+            <li><Link href="/" className="footer-link">Inicio</Link></li>
+            <li><Link href="/nosotros" className="footer-link">Nosotros</Link></li>
+            <li><Link href="/rifa-solidaria" className="footer-link">Rifa Solidaria</Link></li>
           </ul>
         </div>
         {/* Sección 3: Información de ubicación */}
