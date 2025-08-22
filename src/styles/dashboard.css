@@ -1,0 +1,191 @@
+.dashboard-sidebar-bg {
+  background: #1E3A8A !important;
+  box-shadow: 0 4px 24px 0 rgba(30,58,138,0.12);
+  border-radius: 0;
+
+}
+.dashboard-header-bg {
+  background: #fff !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.dashboard-bg {
+  background-color: #F9FAFB !important;
+}
+.dashboard-main-content {
+  background-color: #F9FAFB !important;
+  color: #111827 !important;
+  border-radius: 24px;
+  box-shadow: 0 2px 24px 0 rgba(30,58,138,0.06);
+  margin: 24px 24px 24px 0;
+  padding: 24px;
+}
+.dashboard-logo-text,
+.dashboard-header-title {
+  color: #111827 !important;
+  background: transparent !important;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(30,58,138,0.10);
+}
+.dashboard-header-btn {
+  background-color: #2563EB !important;
+  color: #F9FAFB !important;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.dashboard-header-btn:hover {
+  background-color: #3B82F6 !important;
+  box-shadow: 0 4px 16px 0 rgba(59,130,246,0.12);
+}
+.dashboard-sidebar-items {
+  color: #F9FAFB !important;
+  background: transparent !important;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.dashboard-sidebar-items:hover,
+.dashboard-sidebar-items.dashboard-sidebar-items-active {
+  background-color: #3B82F6 !important;
+  color: #F9FAFB !important;
+  box-shadow: 0 2px 8px 0 rgba(59,130,246,0.10);
+}
+.dashboard-sidebar-user-text {
+  color: #F9FAFB !important;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.dashboard-sidebar-user-desc {
+  color: #6B7280 !important;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+}
+/* Fondo sidebar y header */
+/* Mantener fondo azul sólido en el sidebar */
+/* Línea de separación entre menú y dashboard */
+.dashboard-sidebar-separator {
+  width: 3px;
+  height: 100%;
+  background: #2563EB;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+/* Eliminado fondo azul del header, solo fondo blanco */
+
+/* Fondo principal dashboard */
+.dashboard-bg {
+  background-color: #F9FAFB !important;
+}
+.dashboard-main-content {
+  background-color: #F9FAFB !important;
+  color: #111827 !important;
+}
+
+/* Texto principal sidebar y header */
+.dashboard-logo-text,
+.dashboard-header-title {
+  color: #F9FAFB !important;
+}
+
+/* Botón principal y acciones */
+.dashboard-header-btn {
+  background-color: #2563EB !important;
+  color: #F9FAFB !important;
+}
+.dashboard-header-btn:hover {
+  background-color: #3B82F6 !important;
+}
+
+/* Sidebar items */
+.dashboard-sidebar-items {
+  color: #F9FAFB !important;
+  background: transparent !important;
+}
+.dashboard-sidebar-items:hover,
+.dashboard-sidebar-items.dashboard-sidebar-items-active {
+  background-color: #3B82F6 !important;
+  color: #F9FAFB !important;
+}
+
+/* Texto principal */
+.dashboard-sidebar-user-text {
+  color: #F9FAFB !important;
+}
+
+/* Texto secundario / descripciones */
+.dashboard-sidebar-user-desc {
+  color: #6B7280 !important;
+}
+
+.dashboard-background-base {
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
+.grain-background {
+  background: url('/assets/background/grain-bg.svg') repeat;
+}
+
+.dashboard-shared-top-grainy-blur {
+  position: absolute;
+  left: -131.023px;
+  top: -127.993px;
+  width: 211px;
+  height: 245px;
+  z-index: -1;
+  background: linear-gradient(
+    0deg,
+    rgba(255, 251, 229, 0) 0%,
+    rgba(21, 227, 227, 0.06) 35.5%,
+    rgba(255, 248, 0, 0.48) 80.5%
+  );
+  filter: blur(26px);
+}
+.dashboard-shared-top-grainy-blur::before {
+  content: '';
+  left: 55px;
+  position: absolute;
+  width: 101px;
+  height: 167px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(168, 240, 248, 0.6) 100%);
+  filter: blur(26px);
+}
+
+.dashboard-shared-bottom-grainy-blur {
+  position: absolute;
+  transform: rotate(-90deg);
+  right: -440.007px;
+  bottom: -560px;
+  width: 820px;
+  height: 951px;
+  flex-shrink: 0;
+  border-radius: 951px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 251, 229, 0) 0%,
+    rgba(21, 227, 227, 0.06) 35.5%,
+    rgba(255, 248, 0, 0.48) 80.5%
+  );
+  filter: blur(100px);
+}
+
+.dashboard-shared-bottom-grainy-blur::before {
+  content: '';
+  position: absolute;
+  width: 394px;
+  height: 648px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(168, 240, 248, 0.6) 100%);
+  filter: blur(100px);
+}
+
+
+/* Eliminado ::after y :after para la línea de separación */
+/* Si necesitas una línea, usa solo el elemento base con background o border */
+/* Fragmento de gradiente eliminado por error de sintaxis. Si necesitas una línea decorativa, usa un border o background en el elemento base. */
