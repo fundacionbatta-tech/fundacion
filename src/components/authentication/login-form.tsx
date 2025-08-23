@@ -50,12 +50,6 @@ export function LoginForm() {
         <Button type={'submit'} className="form-btn-primary">
           Ingresar
         </Button>
-        <div className="form-link-row">
-          ¿No tienes cuenta?{' '}
-          <a href={'/signup'} className="form-link">
-            Regístrate
-          </a>
-        </div>
       </form>
     </div>
   );

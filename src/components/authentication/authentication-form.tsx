@@ -16,7 +16,7 @@ export function AuthenticationForm({ email, onEmailChange, onPasswordChange, pas
     <>
       <div className="form-group">
         <Label className="form-label" htmlFor="email">
-          Email address
+          Correo electrónico
         </Label>
         <div className="input-icon-wrapper">
           <FiMail className="input-icon" />
@@ -32,7 +32,7 @@ export function AuthenticationForm({ email, onEmailChange, onPasswordChange, pas
       </div>
       <div className="form-group">
         <Label className="form-label" htmlFor="password">
-          Password
+          Contraseña
         </Label>
         <div className="input-icon-wrapper">
           <FiLock className="input-icon" />

@@ -1,12 +1,16 @@
+'use client'
+
 import { DashboardPageHeader } from '@/components/dashboard/layout/dashboard-page-header';
+
+import { CuotasTable } from '@/components/cuotas/CuotasTable';
 
 export default function LandingPage() {
   return (
-    <main
-      className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-8"
-      style={{ backgroundColor: '#F9FAFB', color: '#111827' }}
-    >
-      <DashboardPageHeader pageTitle={'Dashboard'} />
+    <main className="dashboard-bg min-h-screen flex flex-col gap-6 p-4 lg:p-12">
+      <DashboardPageHeader pageTitle="Dashboard" subtitle="Panel de administración de cuotas y aptos" />
+      <section className="dashboard-main-content">
+        <CuotasTable />
+      </section>
     </main>
   );
 }

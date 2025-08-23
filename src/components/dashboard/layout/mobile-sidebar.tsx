@@ -4,6 +4,8 @@ import { Menu } from 'lucide-react';
 import { Sidebar } from '@/components/dashboard/layout/sidebar';
 import { SidebarUserInfo } from '@/components/dashboard/layout/sidebar-user-info';
 
+import { SheetHeader, SheetTitle } from '@/components/ui/sheet';
+
 export function MobileSidebar() {
   return (
     <Sheet>
@@ -13,7 +15,11 @@ export function MobileSidebar() {
           <span className="sr-only">Toggle navigation menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="flex flex-col dashboard-sidebar-bg">
+  <SheetContent side="left" className="flex flex-col dashboard-sidebar-bg w-full max-w-full" style={{background: '#1E3A8A', minHeight: '100vh', boxShadow: '0 4px 24px 0 rgba(30,58,138,0.12)'}}>
+        {/* Header y título para accesibilidad */}
+        <SheetHeader>
+          <SheetTitle>Menú</SheetTitle>
+        </SheetHeader>
         <Sidebar />
         <SidebarUserInfo />
       </SheetContent>

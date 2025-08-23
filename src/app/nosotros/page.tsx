@@ -53,7 +53,7 @@ export default function Nosotros() {
         <img src="/assets/galeria/profesor_luis.png" alt="Profesor Luis" className="nosotros-luis-img" />
         <div className="nosotros-luis-text">
           <div className="nosotros-section-title">El Corazón de la Fundación</div>
-          El profesor Luis ha sido el motor principal de esta fundación. Con dedicación y esfuerzo incansable, ha guiado a generaciones de niños y niñas en su camino deportivo y educativo. Su pasión por ayudar y su entrega son la base de lo que hoy somos como familia.
+          El profesor Luis Arcadio Corredor ha sido el motor principal de esta fundación. Con dedicación y esfuerzo incansable, ha guiado a generaciones de niños y niñas en su camino deportivo y educativo. Su pasión por ayudar y su entrega son la base de lo que hoy somos como familia.
         </div>
       </section>
 
