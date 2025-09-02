@@ -150,16 +150,59 @@ export default function RifaInfo() {
           <section className="rifa-detalle">
             <div className="rifa-hero">
               <div className="rifa-hero-content">
-                <h1 className="rifa-title">{selectedRifa.nombre}</h1>
-                <p className="rifa-subtitle">{selectedRifa.descripcion}</p>
-                <div className="rifa-hero-details">
-                  <span className="rifa-date">
-                    Inicio: {selectedRifa.fecha_inicio} | Fin: {selectedRifa.fecha_fin}
-                  </span>
-                  <span className="rifa-bono">
-                    Valor del boleto: ${selectedRifa.precio_boleto} COP
-                    {selectedRifa.permitir_cuotas ? ' (Permite cuotas)' : ''}
-                  </span>
+                <div
+                  className="rifa-hero-mobile-info"
+                  style={{
+                    background: 'linear-gradient(90deg,#f7b500 60%,#2563eb 100%)',
+                    borderRadius: '16px',
+                    boxShadow: '0 2px 12px rgba(37,99,235,0.08)',
+                    padding: '1.5rem 1rem',
+                    marginBottom: '1.5rem',
+                    color: '#fff',
+                    textAlign: 'center',
+                    maxWidth: '480px',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                  }}
+                >
+                  <h1 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.7rem', letterSpacing: '0.01em' }}>
+                    Gran Rifa Solidaria
+                  </h1>
+                  <p style={{ fontSize: '1rem', fontWeight: 500, marginBottom: '1rem', lineHeight: 1.4 }}>
+                    Juega el día <b>Sábado 20 de diciembre de 2025</b>, con las tres últimas cifras del premio mayor y
+                    sus respectivos premios secos de la lotería de Boyacá.
+                  </p>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.5rem',
+                      alignItems: 'center',
+                      fontSize: '1rem',
+                    }}
+                  >
+                    <span
+                      style={{
+                        background: 'rgba(255,255,255,0.15)',
+                        borderRadius: '8px',
+                        padding: '0.3rem 0.8rem',
+                        fontWeight: 600,
+                      }}
+                    >
+                      <b>Inicio:</b> {selectedRifa.fecha_inicio} | <b>Fin:</b> {selectedRifa.fecha_fin}
+                    </span>
+                    <span
+                      style={{
+                        background: 'rgba(255,255,255,0.15)',
+                        borderRadius: '8px',
+                        padding: '0.3rem 0.8rem',
+                        fontWeight: 600,
+                      }}
+                    >
+                      Valor del boleto: <b>${selectedRifa.precio_boleto} COP</b>{' '}
+                      {selectedRifa.permitir_cuotas ? <span style={{ color: '#10b981' }}>(Permite cuotas)</span> : ''}
+                    </span>
+                  </div>
                 </div>
                 <Countdown />
                 <div className="rifa-hero-buttons">
@@ -170,7 +213,7 @@ export default function RifaInfo() {
                     <button className="rifa-btn secundario">Ya soy participante</button>
                   </Link>
                 </div>
-                {/* Premios */}
+                {/* Premios separados por tipo */}
                 <div
                   className="rifa-premios"
                   style={{
@@ -197,72 +240,253 @@ export default function RifaInfo() {
                     </p>
                   ) : (
                     <div
-                      className="premios-grid"
-                      style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                        gap: '1.5rem',
-                      }}
+                      className="premios-tipos-container"
+                      style={{ display: 'flex', flexWrap: 'wrap', gap: '2.5rem', justifyContent: 'center' }}
                     >
-                      {premios.map((premio) => (
-                        <div
-                          key={premio.id}
-                          className="premio-card"
-                          style={{
-                            background: '#f3f4f6',
-                            borderRadius: '12px',
-                            boxShadow: '0 2px 8px rgba(37,99,235,0.06)',
-                            padding: '1.2rem',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            minHeight: '220px',
-                          }}
-                        >
-                          {premio.imagen_url && (
-                            <Image
-                              src={premio.imagen_url}
-                              alt={premio.nombre}
-                              width={120}
-                              height={90}
-                              style={{
-                                objectFit: 'contain',
-                                borderRadius: '8px',
-                                boxShadow: '0 2px 8px rgba(37,99,235,0.10)',
-                                marginBottom: '0.7rem',
-                              }}
-                            />
-                          )}
+                      {/* Premio Mayor */}
+                      {premios.filter((p) => p.tipo === 'mayor').length > 0 && (
+                        <div className="premios-tipo-section" style={{ flex: '1 1 320px', minWidth: '320px' }}>
+                          <h4
+                            style={{
+                              color: '#f7b500',
+                              fontWeight: 700,
+                              fontSize: '1.25rem',
+                              marginBottom: '1rem',
+                              textAlign: 'center',
+                              letterSpacing: '0.02em',
+                            }}
+                          >
+                            🚗 Premio Mayor
+                          </h4>
+                          <div
+                            className="premios-grid"
+                            style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}
+                          >
+                            {premios
+                              .filter((p) => p.tipo === 'mayor')
+                              .map((premio) => (
+                                <div
+                                  key={premio.id}
+                                  className="premio-card"
+                                  style={{
+                                    background: 'linear-gradient(135deg,#f7b500 60%,#fff 100%)',
+                                    borderRadius: '12px',
+                                    boxShadow: '0 2px 8px rgba(37,99,235,0.10)',
+                                    padding: '1.2rem',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    minHeight: '220px',
+                                  }}
+                                >
+                                  {premio.imagen_url && (
+                                    <Image
+                                      src={premio.imagen_url}
+                                      alt={premio.nombre}
+                                      width={120}
+                                      height={90}
+                                      style={{
+                                        objectFit: 'contain',
+                                        borderRadius: '8px',
+                                        boxShadow: '0 2px 8px rgba(37,99,235,0.10)',
+                                        marginBottom: '0.7rem',
+                                      }}
+                                    />
+                                  )}
+                                  <h4
+                                    style={{
+                                      color: '#222',
+                                      fontWeight: 700,
+                                      fontSize: '1.15rem',
+                                      marginBottom: '0.5rem',
+                                      textAlign: 'center',
+                                    }}
+                                  >
+                                    🚗 {premio.nombre}
+                                  </h4>
+                                  <p
+                                    style={{
+                                      color: '#222',
+                                      fontWeight: 500,
+                                      fontSize: '1rem',
+                                      marginBottom: '0.5rem',
+                                      textAlign: 'center',
+                                    }}
+                                  >
+                                    {premio.descripcion}
+                                  </p>
+                                  <span
+                                    className="premio-cantidad"
+                                    style={{ color: '#10b981', fontWeight: 600, fontSize: '1rem' }}
+                                  >
+                                    Cantidad: {premio.cantidad}
+                                  </span>
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+                      )}
+                      {/* Premios Secundarios */}
+                      {premios.filter((p) => p.tipo === 'secundario').length > 0 && (
+                        <div className="premios-tipo-section" style={{ flex: '1 1 320px', minWidth: '320px' }}>
                           <h4
                             style={{
                               color: '#2563eb',
                               fontWeight: 700,
-                              fontSize: '1.15rem',
-                              marginBottom: '0.5rem',
+                              fontSize: '1.25rem',
+                              marginBottom: '1rem',
                               textAlign: 'center',
+                              letterSpacing: '0.02em',
                             }}
                           >
-                            {premio.tipo === 'mayor' ? '🚗' : premio.tipo === 'secundario' ? '🎁' : '�'} {premio.nombre}
+                            🎁 Premios Secundarios
                           </h4>
-                          <p
+                          <div
+                            className="premios-grid"
+                            style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}
+                          >
+                            {premios
+                              .filter((p) => p.tipo === 'secundario')
+                              .map((premio) => (
+                                <div
+                                  key={premio.id}
+                                  className="premio-card"
+                                  style={{
+                                    background: 'linear-gradient(135deg,#2563eb 60%,#fff 100%)',
+                                    borderRadius: '12px',
+                                    boxShadow: '0 2px 8px rgba(37,99,235,0.10)',
+                                    padding: '1.2rem',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    minHeight: '220px',
+                                  }}
+                                >
+                                  {premio.imagen_url && (
+                                    <Image
+                                      src={premio.imagen_url}
+                                      alt={premio.nombre}
+                                      width={120}
+                                      height={90}
+                                      style={{
+                                        objectFit: 'contain',
+                                        borderRadius: '8px',
+                                        boxShadow: '0 2px 8px rgba(37,99,235,0.10)',
+                                        marginBottom: '0.7rem',
+                                      }}
+                                    />
+                                  )}
+                                  <h4
+                                    style={{
+                                      color: '#222',
+                                      fontWeight: 700,
+                                      fontSize: '1.15rem',
+                                      marginBottom: '0.5rem',
+                                      textAlign: 'center',
+                                    }}
+                                  >
+                                    🎁 {premio.nombre}
+                                  </h4>
+                                  <p
+                                    style={{
+                                      color: '#222',
+                                      fontWeight: 500,
+                                      fontSize: '1rem',
+                                      marginBottom: '0.5rem',
+                                      textAlign: 'center',
+                                    }}
+                                  >
+                                    {premio.descripcion}
+                                  </p>
+                                  <span
+                                    className="premio-cantidad"
+                                    style={{ color: '#10b981', fontWeight: 600, fontSize: '1rem' }}
+                                  >
+                                    Cantidad: {premio.cantidad}
+                                  </span>
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+                      )}
+                      {/* Premios Semanales */}
+                      {premios.filter((p) => p.tipo === 'semanal').length > 0 && (
+                        <div className="premios-tipo-section" style={{ flex: '1 1 320px', minWidth: '320px' }}>
+                          <h4
                             style={{
-                              color: '#222',
-                              fontWeight: 500,
-                              fontSize: '1rem',
-                              marginBottom: '0.5rem',
+                              color: '#10b981',
+                              fontWeight: 700,
+                              fontSize: '1.25rem',
+                              marginBottom: '1rem',
                               textAlign: 'center',
+                              letterSpacing: '0.02em',
                             }}
                           >
-                            {premio.descripcion}
-                          </p>
-                          <span
-                            className="premio-cantidad"
-                            style={{ color: '#10b981', fontWeight: 600, fontSize: '1rem' }}
+                            🗓️ Premios Semanales
+                          </h4>
+                          <div
+                            className="premios-grid"
+                            style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}
                           >
-                            Cantidad: {premio.cantidad}
-                          </span>
+                            {premios
+                              .filter((p) => p.tipo === 'semanal')
+                              .map((premio) => (
+                                <div
+                                  key={premio.id}
+                                  className="premio-card"
+                                  style={{
+                                    background: 'linear-gradient(135deg,#10b981 60%,#fff 100%)',
+                                    borderRadius: '12px',
+                                    boxShadow: '0 2px 8px rgba(37,99,235,0.10)',
+                                    padding: '1.2rem',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    minHeight: '220px',
+                                  }}
+                                >
+                                  {premio.imagen_url && (
+                                    <Image
+                                      src={premio.imagen_url}
+                                      alt={premio.nombre}
+                                      width={120}
+                                      height={90}
+                                      style={{
+                                        objectFit: 'contain',
+                                        borderRadius: '8px',
+                                        boxShadow: '0 2px 8px rgba(37,99,235,0.10)',
+                                        marginBottom: '0.7rem',
+                                      }}
+                                    />
+                                  )}
+                                  <h4
+                                    style={{
+                                      color: '#222',
+                                      fontWeight: 700,
+                                      fontSize: '1.15rem',
+                                      marginBottom: '0.5rem',
+                                      textAlign: 'center',
+                                    }}
+                                  >
+                                    🗓️ {premio.nombre}
+                                  </h4>
+                                  <p
+                                    style={{
+                                      color: '#222',
+                                      fontWeight: 500,
+                                      fontSize: '1rem',
+                                      marginBottom: '0.5rem',
+                                      textAlign: 'center',
+                                    }}
+                                  >
+                                    {premio.descripcion}
+                                  </p>
+                                  {/* No mostrar cantidad para premios semanales */}
+                                </div>
+                              ))}
+                          </div>
                         </div>
-                      ))}
+                      )}
                     </div>
                   )}
                 </div>

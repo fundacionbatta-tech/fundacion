@@ -26,7 +26,21 @@ export function DashboardLayout({ children }: Props) {
           </Link>
         </div>
         <div className="flex flex-col grow">
-          <Sidebar />
+          <div
+            className="sidebar-scroll-container"
+            style={{
+              maxHeight: 'calc(100vh - 180px)',
+              overflowY: 'auto',
+              background: 'linear-gradient(180deg, #1e3a8a 90%, #2563eb 100%)',
+              borderRadius: '16px',
+              boxShadow: '0 2px 16px 0 rgba(30,58,138,0.10)',
+              padding: '8px 0',
+              margin: '0 8px',
+              scrollbarWidth: 'thin',
+            }}
+          >
+            <Sidebar />
+          </div>
           <SidebarUserInfo />
         </div>
       </div>
