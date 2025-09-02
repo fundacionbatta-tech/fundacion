@@ -1,0 +1,124 @@
+.form {
+  background: #f9fafb;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  padding: 2.5rem;
+  max-width: 760px;
+  margin: 2.5rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-family: 'Inter', 'Poppins', 'Source Sans Pro', sans-serif;
+}
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+}
+.subtitle {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #1d4ed8;
+  margin-bottom: 0.5rem;
+}
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.divider {
+  margin: 1.5rem 0;
+  border: none;
+  border-top: 1.5px solid #e5e7eb;
+}
+.premioCard {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e7eb;
+}
+.addBtn {
+  margin-top: 0.5rem;
+  align-self: flex-start;
+  background: #1d4ed8;
+  color: #fff;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  transition: background 0.2s;
+}
+.addBtn:hover {
+  background: #2563eb;
+}
+.removeBtn {
+  margin-top: 0.5rem;
+  align-self: flex-end;
+  background: #e11d48;
+  color: #fff;
+  font-weight: 500;
+  padding: 0.5rem 1.2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  transition: background 0.2s;
+}
+.removeBtn:hover {
+  background: #be123c;
+}
+.submitBtn {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: #1d4ed8;
+  color: #fff;
+  padding: 0.7rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s;
+}
+.submitBtn:hover {
+  background: #2563eb;
+}
+
+/* Inputs y selects solo dentro del formulario local */
+.form input,
+.form select {
+  font-size: 1rem;
+  padding: 0.7rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #1f2937;
+  font-family: inherit;
+  transition:
+    border 0.2s,
+    box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+.form input:focus,
+.form select:focus {
+  outline: none;
+  border-color: #1d4ed8;
+  box-shadow: 0 0 0 2px #1d4ed833;
+}
+.form input::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+
+.form label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.1px;
+}

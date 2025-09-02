@@ -1,3 +1,229 @@
+/* Alerta de éxito de rifa centrada y grande */
+.rifa-success-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background: linear-gradient(135deg, #f9fafb 60%, #e0e7ff 100%);
+  border-radius: 3em;
+  padding: 5em 4em;
+  box-shadow: 0 24px 80px rgba(37, 99, 235, 0.25);
+  min-width: 600px;
+  max-width: 98vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2.5px solid #2563eb;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  animation: toastPopIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes toastPopIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+.rifa-modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(37, 99, 235, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: background 0.3s;
+}
+.rifa-modal {
+  background: linear-gradient(120deg, #f3f4f6 0%, #e0e7ff 100%);
+  border-radius: 22px;
+  box-shadow: 0 12px 40px rgba(37, 99, 235, 0.18);
+  padding: 2.2rem 2.7rem 1.7rem 2.7rem;
+  max-width: 400px;
+  min-width: 320px;
+  text-align: center;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  animation: modalFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1100;
+}
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.rifa-modal h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1.1rem;
+  color: #2563eb;
+  letter-spacing: 1px;
+}
+.rifa-verificacion-info {
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #1f2937;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.07);
+}
+.scrollable-boletos {
+  max-height: 340px;
+  overflow-y: auto;
+  border: 1.5px solid #e0e7ff;
+  border-radius: 12px;
+  background: #f9fafb;
+  padding: 0.5rem 0.2rem;
+  margin-bottom: 0.7rem;
+}
+.boleto-cuadro.small {
+  min-width: 38px;
+  min-height: 32px;
+  font-size: 0.95rem;
+  padding: 0.3rem 0.1rem;
+  border-radius: 8px;
+}
+.boleto-num {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  display: block;
+  font-family: 'Roboto Mono', 'monospace', monospace;
+}
+.boleto-cuadro.vendido {
+  background: #e5e7eb;
+  color: #9ca3af;
+  border-color: #d1d5db;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.rifa-boletos-paginacion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 0.7rem 0 0.2rem 0;
+}
+.rifa-pag-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 1.1rem;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.rifa-pag-btn:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+.rifa-pag-info {
+  font-size: 1rem;
+  color: #2563eb;
+  font-weight: 500;
+}
+.rifa-aviso-obligatorio {
+  background: #fff7ed;
+  color: #b45309;
+  border: 1.5px solid #fbbf24;
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  margin: 1rem 0 0.5rem 0;
+  font-size: 1.05rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(251, 191, 36, 0.07);
+}
+.rifa-bg {
+  background: linear-gradient(120deg, #e0e7ff 0%, #f3f4f6 100%);
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.card-glass {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.1);
+  border-radius: 24px;
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  backdrop-filter: blur(6px);
+  border: 1.5px solid #e0e7ff;
+}
+.gradient-text {
+  background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+.rifa-info-box {
+  background: #f3f4f6;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.07);
+}
+.rifa-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.7rem;
+  flex-wrap: wrap;
+}
+.rifa-stat {
+  background: #e0e7ff;
+  color: #2563eb;
+  border-radius: 8px;
+  padding: 0.3rem 0.8rem;
+  font-weight: 500;
+  font-size: 1rem;
+}
+.fancy-form {
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+.rifa-boletos-bar {
+  margin-top: 0.7rem;
+}
+.rifa-boletos-label {
+  font-size: 0.95rem;
+  color: #374151;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+.rifa-boletos-progress {
+  width: 100%;
+  height: 12px;
+  background: #e0e7ff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.07);
+}
+.rifa-boletos-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
+  border-radius: 8px;
+  transition: width 0.4s;
+}
 .rifa-bank-icons {
   margin-bottom: 1.2rem;
 }
@@ -6,21 +232,23 @@
   height: 56px;
   object-fit: contain;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  transition: box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
 }
 .rifa-bank-logo:hover {
-  box-shadow: 0 4px 16px rgba(37,99,235,0.15);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
   transform: scale(1.08);
 }
 .rifa-bank-info {
-  background: #F3F4F6;
-  color: #1F2937;
+  background: #f3f4f6;
+  color: #1f2937;
   border-radius: 8px;
   padding: 0.7rem 1rem;
   margin-top: 0.5rem;
   font-size: 1rem;
-  box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
 }
 .rifa-file-hidden {
   display: none;
@@ -29,7 +257,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(90deg, #2563EB 0%, #1D4ED8 100%);
+  background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
   color: #fff;
   font-weight: 500;
   padding: 0.7rem 1.2rem;
@@ -38,42 +266,88 @@
   font-size: 1rem;
   margin-top: 8px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
   transition: background 0.2s;
 }
 .rifa-upload-btn:hover {
-  background: linear-gradient(90deg, #1D4ED8 0%, #2563EB 100%);
+  background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 100%);
 }
 .rifa-file {
   margin-top: 8px;
   padding: 0.5rem 0.3rem;
   border-radius: 8px;
-  border: 1.5px solid #2563EB;
-  background: #F9FAFB;
-  color: #1F2937;
+  border: 1.5px solid #2563eb;
+  background: #f9fafb;
+  color: #1f2937;
   font-size: 1rem;
   outline: none;
   width: 100%;
   transition: border-color 0.2s;
 }
 .rifa-file:focus {
-  border-color: #1D4ED8;
+  border-color: #1d4ed8;
   background: #fff;
 }
 /* Estilos para la página de la rifa solidaria */
 .rifa-container {
   min-height: 100vh;
-  background: linear-gradient(180deg, #F3F4F6 0%, #E5E7EB 100%);
+  background: linear-gradient(180deg, #f3f4f6 0%, #e5e7eb 100%);
 }
 .rifa-form-wrapper {
   max-width: 480px;
   width: 100%;
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
   padding: 2rem 2.5rem;
   margin-top: 2rem;
   margin-bottom: 3rem;
+}
+.rifa-form-wrapper.wide {
+  max-width: 900px;
+  padding: 2.5rem 3.5rem;
+}
+/* Grid de boletos visuales */
+.rifa-boletos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 0.7rem;
+  margin: 1rem 0 0.5rem 0;
+}
+.boleto-cuadro {
+  background: linear-gradient(90deg, #e0e7ff 0%, #f3f4f6 100%);
+  border: 2px solid #2563eb;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+  padding: 0.7rem 0.2rem;
+  font-size: 1.2rem;
+  color: #2563eb;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+  position: relative;
+  min-width: 60px;
+  min-height: 48px;
+  outline: none;
+}
+.boleto-cuadro.selected {
+  border-color: #1d4ed8;
+  background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
+}
+.boleto-cuadro:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.boleto-num {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  display: block;
 }
 .rifa-title {
   text-align: center;
@@ -96,30 +370,32 @@
   font-weight: 500;
   color: #111;
 }
-.rifa-input, .rifa-select {
+.rifa-input,
+.rifa-select {
   width: 100%;
   padding: 0.7rem;
   border-radius: 8px;
-  border: 1.5px solid #2563EB;
+  border: 1.5px solid #2563eb;
   margin-top: 4px;
-  background: #F9FAFB;
-  color: #1F2937;
+  background: #f9fafb;
+  color: #1f2937;
   font-size: 1rem;
   outline: none;
   transition: border-color 0.2s;
 }
-.rifa-input:focus, .rifa-select:focus {
-  border-color: #1D4ED8;
+.rifa-input:focus,
+.rifa-select:focus {
+  border-color: #1d4ed8;
   background: #fff;
 }
 .rifa-cuota-info {
   margin-top: 8px;
-  color: #2563EB;
+  color: #2563eb;
   font-weight: 500;
   font-size: 1rem;
 }
 .rifa-submit {
-  background: linear-gradient(90deg, #2563EB 0%, #1D4ED8 100%);
+  background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
   color: #fff;
   font-weight: 600;
   padding: 0.9rem;
@@ -128,5 +404,5 @@
   font-size: 1.1rem;
   margin-top: 0.5rem;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
 }

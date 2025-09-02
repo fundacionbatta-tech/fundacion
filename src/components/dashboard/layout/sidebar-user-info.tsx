@@ -18,10 +18,13 @@ export function SidebarUserInfo() {
 
   return (
     <div className={'flex flex-col items-start pb-8 px-2 text-sm font-medium lg:px-4 dashboard-sidebar-bg'}>
-  <Separator className={'dashboard-separator mt-6'} />
       <div className={'flex w-full flex-row mt-6 items-center justify-between'}>
         <div className={'flex flex-col items-start justify-center overflow-hidden text-ellipsis'}>
-          <div className={'text-sm leading-5 font-semibold w-full overflow-hidden text-ellipsis dashboard-sidebar-user-text'}>
+          <div
+            className={
+              'text-sm leading-5 font-semibold w-full overflow-hidden text-ellipsis dashboard-sidebar-user-text'
+            }
+          >
             {user?.user_metadata?.full_name}
           </div>
           <div className={'text-sm leading-5 w-full overflow-hidden text-ellipsis dashboard-sidebar-user-desc'}>

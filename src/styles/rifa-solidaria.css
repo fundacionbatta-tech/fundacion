@@ -1,3 +1,199 @@
+/* Mejoras visuales para el componente de información de la rifa */
+.rifa-listado-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.rifa-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.rifa-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08);
+  padding: 2rem 1.5rem;
+  border: 1.5px solid #eee;
+  transition:
+    border 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  cursor: pointer;
+  animation: fadeInCard 0.5s;
+}
+.rifa-card.selected {
+  border: 2.5px solid #f7b500;
+  box-shadow: 0 6px 24px rgba(247, 181, 0, 0.12);
+  transform: scale(1.03);
+}
+.rifa-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+.rifa-card-check {
+  color: #f7b500;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-left: auto;
+}
+.rifa-card-desc {
+  margin: 0.5rem 0 1rem 0;
+  color: #222;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+.rifa-card-info {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #2563eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-weight: 500;
+}
+.rifa-card-precio {
+  font-weight: 700;
+  color: #f7b500;
+  margin-bottom: 1rem;
+  font-size: 1.08rem;
+}
+.rifa-card-cuotas {
+  font-size: 1rem;
+  color: #10b981;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.rifa-card-btn {
+  background: #009688;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  transition: background 0.2s;
+}
+.rifa-card-btn.selected {
+  background: #f7b500;
+}
+.rifa-loading,
+.rifa-error {
+  text-align: center;
+  font-size: 1.1rem;
+  margin: 1.5rem 0;
+}
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mejoras visuales para el contador regresivo */
+.rifa-countdown.mejorada {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(90deg, #2563eb 60%, #10b981 100%);
+  border-radius: 14px;
+  padding: 1.2rem 2rem;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  box-shadow: 0 2px 12px rgba(37, 99, 235, 0.1);
+  margin-bottom: 2rem;
+}
+.countdown-label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+.countdown-values {
+  display: flex;
+  gap: 1.2rem;
+}
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  min-width: 60px;
+}
+.countdown-item span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+.countdown-item small {
+  font-size: 0.85rem;
+  color: #e0e7ff;
+}
+
+/* Mejoras visuales para el acordeón de condiciones */
+.condiciones-acordeon.visual details {
+  background: #f3f4f6;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.04);
+  margin-bottom: 0.85rem;
+  padding: 0.7rem 1.2rem;
+  color: #1f2937;
+  border-left: 4px solid #2563eb;
+  transition: box-shadow 0.2s;
+}
+.condiciones-acordeon.visual details[open] {
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.1);
+}
+.condiciones-acordeon.visual summary {
+  font-weight: 700;
+  font-size: 1.08rem;
+  cursor: pointer;
+  outline: none;
+  color: #2563eb;
+  padding-bottom: 0.2rem;
+}
+.condiciones-acordeon.visual p {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  color: #374151;
+}
+
+/* Responsive mejoras */
+@media (max-width: 600px) {
+  .rifa-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .rifa-card {
+    padding: 1.2rem 0.7rem;
+  }
+  .rifa-countdown.mejorada {
+    padding: 1rem 0.5rem;
+    font-size: 1.05rem;
+  }
+  .countdown-values {
+    gap: 0.5rem;
+  }
+}
 /* Estilos para el contador regresivo */
 .rifa-countdown {
   margin: 1rem 0 1.5rem 0;
@@ -5,17 +201,17 @@
   font-weight: 700;
   color: #fff;
   text-align: center;
-  text-shadow: 0 2px 8px rgba(37,99,235,0.18);
+  text-shadow: 0 2px 8px rgba(37, 99, 235, 0.18);
   letter-spacing: 1px;
 }
 /* Estilos acordeón condiciones generales */
 .condiciones-acordeon details {
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   margin-bottom: 0.75rem;
   padding: 0.5rem 1rem;
-  color: #1F2937;
+  color: #1f2937;
 }
 .condiciones-acordeon summary {
   font-weight: 600;
@@ -33,7 +229,7 @@
 .premios-ejemplo-text {
   text-align: center;
   font-size: 0.95rem;
-  color: #6B7280;
+  color: #6b7280;
   margin-bottom: 1rem;
 }
 /* rifa-solidaria.css */
@@ -115,7 +311,9 @@
   cursor: pointer;
   font-size: 1.1rem;
   font-weight: 600;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 .rifa-btn.principal {
   background: #2563eb;
@@ -144,7 +342,7 @@
   width: 320px;
   height: auto;
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(37,99,235,0.12);
+  box-shadow: 0 4px 24px rgba(37, 99, 235, 0.12);
   margin-bottom: 1rem;
 }
 .premio-title {
@@ -152,6 +350,23 @@
   font-weight: bold;
   color: #2563eb;
   text-align: center;
+}
+
+.premios-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #f7b500;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 1px;
+  line-height: 1.3;
+  background: linear-gradient(90deg, #f7b500 60%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-shadow: 0 2px 12px rgba(247, 181, 0, 0.12);
+  padding: 0.5rem 0;
 }
 
 /* Premios secundarios */
@@ -173,7 +388,7 @@
 .premio-card {
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   padding: 1.5rem 1rem;
   text-align: center;
   display: flex;
@@ -194,7 +409,7 @@
 
 /* Condiciones generales */
 .rifa-condiciones {
-  background: #F9FAFB;
+  background: #f9fafb;
   border-radius: 16px;
   padding: 2rem 1rem;
   margin: 2rem 0;
@@ -211,7 +426,7 @@
   background: #fff;
   border-radius: 12px;
   padding: 1rem 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   font-size: 1.05rem;
   color: #374151;
 }
@@ -223,7 +438,7 @@
 .rifa-fundacion {
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   padding: 2rem 1rem;
   margin: 2rem 0;
 }
@@ -255,7 +470,7 @@
 
 /* Call to Action final */
 .rifa-cta-final {
-  background: #F9FAFB;
+  background: #f9fafb;
   border-radius: 16px;
   padding: 2rem 1rem;
   margin: 2rem 0;
@@ -263,7 +478,7 @@
 }
 .cta-text {
   font-size: 1.2rem;
-  color: #1F2937;
+  color: #1f2937;
   margin-bottom: 1.5rem;
 }
 .cta-buttons {

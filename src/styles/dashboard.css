@@ -1,8 +1,7 @@
 .dashboard-sidebar-bg {
-  background: #1E3A8A !important;
-  box-shadow: 0 4px 24px 0 rgba(30,58,138,0.12);
+  background: #1e3a8a !important;
+  box-shadow: 0 4px 24px 0 rgba(30, 58, 138, 0.12);
   border-radius: 0;
-
 }
 .dashboard-header-bg {
   background: #fff !important;
@@ -10,16 +9,18 @@
   border-radius: 0 !important;
 }
 .dashboard-bg {
-  background-color: #F9FAFB !important;
+  background-color: #f9fafb !important;
 }
 .dashboard-main-content {
-  background-color: #F9FAFB !important;
+  background-color: #f9fafb !important;
   color: #111827 !important;
   border-radius: 24px;
-  box-shadow: 0 2px 24px 0 rgba(30,58,138,0.06);
+  box-shadow: 0 2px 24px 0 rgba(30, 58, 138, 0.06);
   margin: 24px 8px 24px 0;
   padding: 16px;
-  transition: margin 0.3s, padding 0.3s;
+  transition:
+    margin 0.3s,
+    padding 0.3s;
   position: relative;
 }
 
@@ -30,15 +31,11 @@
   }
 }
 
-.dashboard-sidebar-bg {
-  border-right: 2px solid #e5e7eb !important; /* Separación visual en desktop */
-}
-
 @media (max-width: 768px) {
   .dashboard-main-content {
     margin: 16px 0 0 0;
     border-radius: 16px;
-    box-shadow: 0 1px 8px 0 rgba(30,58,138,0.04);
+    box-shadow: 0 1px 8px 0 rgba(30, 58, 138, 0.04);
     padding: 8px;
   }
   .dashboard-sidebar-bg {
@@ -52,40 +49,44 @@
   color: #111827 !important;
   background: transparent !important;
   letter-spacing: 0.5px;
-  text-shadow: 0 2px 8px rgba(30,58,138,0.10);
+  text-shadow: 0 2px 8px rgba(30, 58, 138, 0.1);
 }
 .dashboard-header-btn {
-  background-color: #2563EB !important;
-  color: #F9FAFB !important;
+  background-color: #2563eb !important;
+  color: #f9fafb !important;
   border-radius: 8px;
-  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.10);
-  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(37, 99, 235, 0.1);
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
 }
 .dashboard-header-btn:hover {
-  background-color: #3B82F6 !important;
-  box-shadow: 0 4px 16px 0 rgba(59,130,246,0.12);
+  background-color: #3b82f6 !important;
+  box-shadow: 0 4px 16px 0 rgba(59, 130, 246, 0.12);
 }
 .dashboard-sidebar-items {
-  color: #F9FAFB !important;
+  color: #f9fafb !important;
   background: transparent !important;
   border-radius: 8px;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
   font-weight: 500;
   letter-spacing: 0.2px;
 }
 .dashboard-sidebar-items:hover,
 .dashboard-sidebar-items.dashboard-sidebar-items-active {
-  background-color: #3B82F6 !important;
-  color: #F9FAFB !important;
-  box-shadow: 0 2px 8px 0 rgba(59,130,246,0.10);
+  background-color: #3b82f6 !important;
+  color: #f9fafb !important;
+  box-shadow: 0 2px 8px 0 rgba(59, 130, 246, 0.1);
 }
 .dashboard-sidebar-user-text {
-  color: #F9FAFB !important;
+  color: #f9fafb !important;
   font-weight: 600;
   letter-spacing: 0.2px;
 }
 .dashboard-sidebar-user-desc {
-  color: #6B7280 !important;
+  color: #6b7280 !important;
   font-weight: 400;
   letter-spacing: 0.1px;
 }
@@ -95,7 +96,7 @@
 .dashboard-sidebar-separator {
   width: 3px;
   height: 100%;
-  background: #2563EB;
+  background: #2563eb;
   position: absolute;
   right: 0;
   top: 0;
@@ -105,47 +106,47 @@
 
 /* Fondo principal dashboard */
 .dashboard-bg {
-  background-color: #F9FAFB !important;
+  background-color: #f9fafb !important;
 }
 .dashboard-main-content {
-  background-color: #F9FAFB !important;
+  background-color: #f9fafb !important;
   color: #111827 !important;
 }
 
 /* Texto principal sidebar y header */
 .dashboard-logo-text,
 .dashboard-header-title {
-  color: #F9FAFB !important;
+  color: #f9fafb !important;
 }
 
 /* Botón principal y acciones */
 .dashboard-header-btn {
-  background-color: #2563EB !important;
-  color: #F9FAFB !important;
+  background-color: #2563eb !important;
+  color: #f9fafb !important;
 }
 .dashboard-header-btn:hover {
-  background-color: #3B82F6 !important;
+  background-color: #3b82f6 !important;
 }
 
 /* Sidebar items */
 .dashboard-sidebar-items {
-  color: #F9FAFB !important;
+  color: #f9fafb !important;
   background: transparent !important;
 }
 .dashboard-sidebar-items:hover,
 .dashboard-sidebar-items.dashboard-sidebar-items-active {
-  background-color: #3B82F6 !important;
-  color: #F9FAFB !important;
+  background-color: #3b82f6 !important;
+  color: #f9fafb !important;
 }
 
 /* Texto principal */
 .dashboard-sidebar-user-text {
-  color: #F9FAFB !important;
+  color: #f9fafb !important;
 }
 
 /* Texto secundario / descripciones */
 .dashboard-sidebar-user-desc {
-  color: #6B7280 !important;
+  color: #6b7280 !important;
 }
 
 .dashboard-background-base {
@@ -211,7 +212,6 @@
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(168, 240, 248, 0.6) 100%);
   filter: blur(100px);
 }
-
 
 /* Eliminado ::after y :after para la línea de separación */
 /* Si necesitas una línea, usa solo el elemento base con background o border */

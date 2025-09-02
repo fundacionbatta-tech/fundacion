@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from 'next/image';
@@ -6,7 +5,10 @@ import Link from 'next/link';
 import Header from '@/components/home/header/header';
 import { Footer } from '@/components/home/footer/footer';
 import '../../styles/rifa-solidaria.css';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRifasActivas } from '@/hooks/useRifasActivas';
+import { usePremiosRifa } from '@/hooks/usePremiosRifa';
+
 // Componente contador regresivo
 function Countdown() {
   const targetDate = new Date('2025-12-20T00:00:00');
@@ -36,158 +38,348 @@ function Countdown() {
   }, []);
 
   return (
-    <div className="rifa-countdown">
-      <span>⏳ Faltan: </span>
-      <span>{timeLeft.days} días, {timeLeft.hours} horas, {timeLeft.minutes} minutos, {timeLeft.seconds} segundos</span>
+    <div className="rifa-countdown mejorada">
+      <div className="countdown-label">⏳ Faltan:</div>
+      <div className="countdown-values">
+        <div className="countdown-item">
+          <span>{timeLeft.days}</span>
+          <small>días</small>
+        </div>
+        <div className="countdown-item">
+          <span>{timeLeft.hours}</span>
+          <small>horas</small>
+        </div>
+        <div className="countdown-item">
+          <span>{timeLeft.minutes}</span>
+          <small>min</small>
+        </div>
+        <div className="countdown-item">
+          <span>{timeLeft.seconds}</span>
+          <small>seg</small>
+        </div>
+      </div>
     </div>
   );
 }
 
-
 export default function RifaInfo() {
+  const { rifas, loading, error } = useRifasActivas();
+  const [selectedRifaId, setSelectedRifaId] = useState<string | null>(null);
+  const selectedRifa = rifas.find((r) => r.id === selectedRifaId) || null;
+  const { premios, loading: premiosLoading } = usePremiosRifa(selectedRifaId || '');
+
   return (
     <div className="rifa-page-container">
       <Header />
       <main className="rifa-main">
-        {/* Hero Section */}
-        <section className="rifa-hero">
-          <div className="rifa-hero-bg">
-            <Image src="/assets/galeria/carro/1.jpeg" alt="Renault Kwid 2025" className="rifa-hero-img" priority width={1200} height={600} />
-          </div>
-          <div className="rifa-hero-content">
-            <h1 className="rifa-title">🎉 ¡Gran Rifa Solidaria Fundación Batta!</h1>
-            <p className="rifa-subtitle">Participa y gana increíbles premios apoyando a los niños de nuestra fundación.</p>
-            <div className="rifa-hero-details">
-              <span className="rifa-date">📅 Sábado 20 de diciembre de 2025</span>
-              <span className="rifa-bono">🎟️ Valor del boleto: $39.500 COP (5 cuotas para completar $197.000)</span>
+        {/* Listado de rifas activas */}
+        <section className="rifa-listado">
+          <h2
+            className="rifa-listado-title"
+            style={{
+              marginTop: '2.5rem',
+              marginBottom: '1.5rem',
+              color: '#2563eb',
+              fontWeight: 800,
+              fontSize: '2rem',
+              textAlign: 'center',
+              letterSpacing: '0.02em',
+            }}
+          >
+            🎟️ Rifas activas
+          </h2>
+          {loading ? (
+            <p className="rifa-loading">Cargando rifas...</p>
+          ) : error ? (
+            <p className="rifa-error">Error: {error}</p>
+          ) : (
+            <div className="rifa-cards-grid">
+              {rifas.map((rifa) => (
+                <div
+                  key={rifa.id}
+                  className={`rifa-card${selectedRifaId === rifa.id ? ' selected' : ''}`}
+                  onClick={() => setSelectedRifaId(rifa.id)}
+                >
+                  <div className="rifa-card-header">
+                    <h3 style={{ color: '#222', fontWeight: 700 }}>{rifa.nombre}</h3>
+                    {selectedRifaId === rifa.id && <span className="rifa-card-check">✓</span>}
+                  </div>
+                  <p className="rifa-card-desc" style={{ color: '#222', fontWeight: 500 }}>
+                    {rifa.descripcion}
+                  </p>
+                  <div className="rifa-card-info" style={{ color: '#2563eb', fontWeight: 500 }}>
+                    <span>
+                      📅 <b>Inicio:</b> <span style={{ color: '#222' }}>{rifa.fecha_inicio}</span>
+                    </span>
+                    <span>
+                      ⏳ <b>Fin:</b> <span style={{ color: '#222' }}>{rifa.fecha_fin}</span>
+                    </span>
+                  </div>
+                  <div className="rifa-card-precio" style={{ color: '#f7b500', fontWeight: 700, fontSize: '1.08rem' }}>
+                    Valor boleto: <b style={{ color: '#222' }}>${rifa.precio_boleto} COP</b>
+                  </div>
+                  {rifa.permitir_cuotas && (
+                    <span className="rifa-card-cuotas" style={{ color: '#10b981', fontWeight: 600 }}>
+                      Permite cuotas
+                    </span>
+                  )}
+                  <button
+                    className={`rifa-card-btn${selectedRifaId === rifa.id ? ' selected' : ''}`}
+                    style={{
+                      fontSize: '1.08rem',
+                      fontWeight: 700,
+                      boxShadow: '0 2px 8px rgba(37,99,235,0.10)',
+                      background:
+                        selectedRifaId === rifa.id
+                          ? 'linear-gradient(90deg,#f7b500 60%,#2563eb 100%)'
+                          : 'linear-gradient(90deg,#2563eb 60%,#10b981 100%)',
+                      color: '#fff',
+                      border: 'none',
+                    }}
+                  >
+                    {selectedRifaId === rifa.id ? 'Ver detalle' : 'Entrar al detalle'}
+                  </button>
+                </div>
+              ))}
             </div>
-            <Countdown />
-            <div className="rifa-hero-buttons">
-              <Link href="/rifa-solidaria/rifa">
-                <button className="rifa-btn principal">Quiero participar</button>
-              </Link>
-              <Link href="/rifa-solidaria/cuotas">
-                <button className="rifa-btn secundario">Ya soy participante</button>
-              </Link>
-            </div>
-          </div>
+          )}
         </section>
 
-        {/* Premio principal */}
-        <section className="rifa-premio-principal">
-          <Image src="/assets/galeria/carro/1.jpeg" alt="Renault Kwid 2025" className="premio-img" width={320} height={180} />
-          <h2 className="premio-title">🚗 Primer Premio: Renault Kwid 2025 0km</h2>
-        </section>
+        {/* Detalle de la rifa seleccionada */}
+        {selectedRifa && (
+          <section className="rifa-detalle">
+            <div className="rifa-hero">
+              <div className="rifa-hero-content">
+                <h1 className="rifa-title">{selectedRifa.nombre}</h1>
+                <p className="rifa-subtitle">{selectedRifa.descripcion}</p>
+                <div className="rifa-hero-details">
+                  <span className="rifa-date">
+                    Inicio: {selectedRifa.fecha_inicio} | Fin: {selectedRifa.fecha_fin}
+                  </span>
+                  <span className="rifa-bono">
+                    Valor del boleto: ${selectedRifa.precio_boleto} COP
+                    {selectedRifa.permitir_cuotas ? ' (Permite cuotas)' : ''}
+                  </span>
+                </div>
+                <Countdown />
+                <div className="rifa-hero-buttons">
+                  <Link href="/rifa-solidaria/rifa">
+                    <button className="rifa-btn principal">Quiero participar</button>
+                  </Link>
+                  <Link href="/rifa-solidaria/cuotas">
+                    <button className="rifa-btn secundario">Ya soy participante</button>
+                  </Link>
+                </div>
+                {/* Premios */}
+                <div
+                  className="rifa-premios"
+                  style={{
+                    background: '#fff',
+                    borderRadius: '16px',
+                    boxShadow: '0 2px 12px rgba(37,99,235,0.08)',
+                    padding: '2rem 1.5rem',
+                    marginTop: '2rem',
+                  }}
+                >
+                  <h3
+                    className="premios-title"
+                    style={{ color: '#2563eb', fontWeight: 700, fontSize: '1.5rem', marginBottom: '1.2rem' }}
+                  >
+                    🎁 Premios
+                  </h3>
+                  {premiosLoading ? (
+                    <p className="rifa-loading" style={{ color: '#2563eb', fontWeight: 600, fontSize: '1.1rem' }}>
+                      Cargando premios...
+                    </p>
+                  ) : premios.length === 0 ? (
+                    <p className="rifa-error" style={{ color: '#f43f5e', fontWeight: 600, fontSize: '1.1rem' }}>
+                      No hay premios registrados para esta rifa.
+                    </p>
+                  ) : (
+                    <div
+                      className="premios-grid"
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                        gap: '1.5rem',
+                      }}
+                    >
+                      {premios.map((premio) => (
+                        <div
+                          key={premio.id}
+                          className="premio-card"
+                          style={{
+                            background: '#f3f4f6',
+                            borderRadius: '12px',
+                            boxShadow: '0 2px 8px rgba(37,99,235,0.06)',
+                            padding: '1.2rem',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            minHeight: '220px',
+                          }}
+                        >
+                          {premio.imagen_url && (
+                            <Image
+                              src={premio.imagen_url}
+                              alt={premio.nombre}
+                              width={120}
+                              height={90}
+                              style={{
+                                objectFit: 'contain',
+                                borderRadius: '8px',
+                                boxShadow: '0 2px 8px rgba(37,99,235,0.10)',
+                                marginBottom: '0.7rem',
+                              }}
+                            />
+                          )}
+                          <h4
+                            style={{
+                              color: '#2563eb',
+                              fontWeight: 700,
+                              fontSize: '1.15rem',
+                              marginBottom: '0.5rem',
+                              textAlign: 'center',
+                            }}
+                          >
+                            {premio.tipo === 'mayor' ? '🚗' : premio.tipo === 'secundario' ? '🎁' : '�'} {premio.nombre}
+                          </h4>
+                          <p
+                            style={{
+                              color: '#222',
+                              fontWeight: 500,
+                              fontSize: '1rem',
+                              marginBottom: '0.5rem',
+                              textAlign: 'center',
+                            }}
+                          >
+                            {premio.descripcion}
+                          </p>
+                          <span
+                            className="premio-cantidad"
+                            style={{ color: '#10b981', fontWeight: 600, fontSize: '1rem' }}
+                          >
+                            Cantidad: {premio.cantidad}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
 
-        {/* Premios secundarios */}
-        <section className="rifa-premios-secundarios">
-          <h3 className="premios-secundarios-title">Premios Secundarios</h3>
-          <p className="premios-ejemplo-text">* Las imágenes de los premios son de ejemplo y pueden variar respecto al premio real.</p>
-          <div className="premios-grid">
-            <div className="premio-card">
-              <Image src="/assets/galeria/sorteo/moto_electrica.png" alt="Moto eléctrica Auteco" width={120} height={90} style={{objectFit:'contain'}} />
-              <h4>🛵 Moto eléctrica Auteco</h4>
-              <p>Moto eléctrica Auteco, ecológica y moderna.</p>
-            </div>
-            <div className="premio-card">
-              <Image src="/assets/galeria/sorteo/viaje_san_andres.png" alt="Viaje a San Andrés" width={120} height={90} style={{objectFit:'contain'}} />
-              <h4>✈️ Viaje a San Andrés</h4>
-              <p>Viaje para 2 personas, todo incluido.</p>
-            </div>
-            <div className="premio-card">
-              <Image src="/assets/galeria/sorteo/moto_electrica_2.png" alt="Bicicleta eléctrica" width={120} height={90} style={{objectFit:'contain'}} />
-              <h4>🚴 Bicicleta eléctrica</h4>
-              <p>Bicicleta eléctrica, ideal para la ciudad.</p>
-            </div>
-            <div className="premio-card">
-              <Image src="/assets/galeria/sorteo/sala_comedor.png" alt="Sala comedor" width={120} height={90} style={{objectFit:'contain'}} />
-              <h4>🛋️ Sala comedor</h4>
-              <p>Juego de sala comedor moderno.</p>
-            </div>
-            <div className="premio-card">
-              <Image src="/assets/galeria/sorteo/uniformes_futbol.png" alt="Uniformes" width={120} height={90} style={{objectFit:'contain'}} />
-              <h4>👕 30 uniformes</h4>
-              <p>Uniformes deportivos para niños.</p>
-            </div>
-            <div className="premio-card">
-              <Image src="/assets/galeria/sorteo/bultos_cemento.png" alt="Bultos de cemento" width={120} height={90} style={{objectFit:'contain'}} />
-              <h4>🧱 50 bultos de cemento</h4>
-              <p>Material para construcción y apoyo social.</p>
-            </div>
-          </div>
-        </section>
+            {/* Condiciones generales estilo acordeón */}
+            <section className="rifa-condiciones">
+              <h3 className="condiciones-title">📜 CONDICIONES GENERALES</h3>
+              <div className="condiciones-acordeon visual">
+                <details>
+                  <summary>1. Derecho a participar y premios</summary>
+                  <p>
+                    El suscritor del presente bono ($197.000 ciento noventa y siete mil pesos mcte.) adquiere el derecho
+                    a participar en los sorteos que sin letras ni series, juegan el premio mayor, premios secos y
+                    semanales. Los Premios Secos se clasifican de la siguiente manera: 1er. premio seco: Premio Fortuna,
+                    2do. premio seco: Premio Alegría, 3er. premio seco: Premio Ilusión, 4to. premio seco: Premio
+                    Esperanza, 5to. premio seco: Premio Berraquera en su Orden, 6to. premio seco: Premio Berraquera en
+                    su orden.
+                  </p>
+                </details>
+                <details>
+                  <summary>2. Pago de premios</summary>
+                  <p>
+                    Todos los premios que aparecen en este bono son pagaderos al suscriptor, siempre y cuando presente
+                    el bono original ganador y documento de identidad.
+                  </p>
+                </details>
+                <details>
+                  <summary>3. Sorteos semanales</summary>
+                  <p>
+                    Para participar en los sorteos semanales por $ 500.000 quinientos mil pesos el bono debe estar
+                    cancelado en un 100 % del valor total, para el dia del respectivo sorteo.
+                  </p>
+                </details>
+                <details>
+                  <summary>4. Bono comprado a crédito</summary>
+                  <p>
+                    Todo bono comprado a crédito participa con las tres ultimas y las tres primeras cifras del premio
+                    mayor de la lotería de Boyacá por $ 250.000 doscientos cincuenta mil pesos.
+                  </p>
+                </details>
+                <details>
+                  <summary>5. Pago total y participación</summary>
+                  <p>
+                    El bono adquirido a crédito y que no se haya pagado en su totalidad el día 27 de Septiembre de 2025,
+                    no podrá participar en el sorteo, premio mayor ni los premios secos.
+                  </p>
+                </details>
+                <details>
+                  <summary>6. Cambio de domicilio</summary>
+                  <p>
+                    Si el suscriptor del bono que cambia de domicilio o residencia, debe informar a las oficinas del
+                    presentante legal sus datos de su nueva dirección.
+                  </p>
+                </details>
+                <details>
+                  <summary>7. Entrega de premios</summary>
+                  <p>
+                    Los premios serán entregados a los ganadores la semana siguiente del sorteo, luego de verificar la
+                    boletería y presentar Documento de identidad.
+                  </p>
+                </details>
+                <details>
+                  <summary>8. Aplazamiento del sorteo</summary>
+                  <p>
+                    En caso de no venderse el 70% de su totalidad de 1000 boletas treinta días antes del sorteo se
+                    informará a los suscriptores que hayan adquirido sus bonos por escrito y de medios de comunicación
+                    su aplazamiento.
+                  </p>
+                </details>
+                <details>
+                  <summary>9. Información de la fundación</summary>
+                  <p>
+                    La fundación Social Deportiva BATTAN, su gerente y demás integrantes de la junta directiva tendrá su
+                    sede inicialmente en la Calle 19 No 6-46 - Duitama - Veterinaria Bigotes - Luis Arcadio Corredor
+                    Carrera 16 No. 12-24 - Segundo Piso Play House Cels. 314 2041925-313 306 3990)
+                  </p>
+                </details>
+              </div>
+            </section>
 
-        {/* Condiciones generales estilo acordeón */}
-        <section className="rifa-condiciones">
-          <h3 className="condiciones-title">📜 Condiciones Generales</h3>
-          <div className="condiciones-acordeon">
-            <details>
-              <summary>1. Derecho a participar y premios</summary>
-              <p>El suscritor del presente bono ($197.000 ciento noventa y siete mil pesos mcte.) adquiere el derecho a participar en los sorteos que sin letras ni series, juegan el premio mayor, premios secos y semanales. Los Premios Secos se clasifican de la siguiente manera: 1er. premio seco: Premio Fortuna, 2do. premio seco: Premio Alegría, 3er. premio seco: Premio Ilusión, 4to. premio seco: Premio Esperanza, 5to. premio seco: Premio Berraquera en su Orden, 6to. premio seco: Premio Berraquera en su orden.</p>
-            </details>
-            <details>
-              <summary>2. Pago de premios</summary>
-              <p>Todos los premios que aparecen en este bono son pagaderos al suscriptor, siempre y cuando presente el bono original ganador y documento de identidad.</p>
-            </details>
-            <details>
-              <summary>3. Sorteos semanales</summary>
-              <p>Para participar en los sorteos semanales por $500.000 quinientos mil pesos el bono debe estar cancelado en un 100% del valor total, para el día del respectivo sorteo.</p>
-            </details>
-            <details>
-              <summary>4. Bonos a crédito</summary>
-              <p>Todo bono comprado a crédito participa con las tres últimas y las tres primeras cifras del premio mayor de la lotería de Boyacá por $250.000 doscientos cincuenta mil pesos.</p>
-            </details>
-            <details>
-              <summary>5. Pago total y participación</summary>
-              <p>El bono adquirido a crédito y que no se haya pagado en su totalidad el día 27 de Septiembre de 2025, no podrá participar en el sorteo, premio mayor ni los premios secos.</p>
-            </details>
-            <details>
-              <summary>6. Cambio de domicilio</summary>
-              <p>Si el suscriptor del bono que cambia de domicilio o residencia, debe informar a las oficinas del presentante legal sus datos de su nueva dirección.</p>
-            </details>
-            <details>
-              <summary>7. Entrega de premios</summary>
-              <p>Los premios serán entregados a los ganadores la semana siguiente del sorteo, luego de verificar la boletería y presentar Documento de identidad.</p>
-            </details>
-            <details>
-              <summary>8. Aplazamiento del sorteo</summary>
-              <p>En caso de no venderse el 70% de su totalidad de 1000 boletas treinta días antes del sorteo se informará a los suscriptores que hayan adquirido sus bonos por escrito y de medios de comunicación su aplazamiento.</p>
-            </details>
-            <details>
-              <summary>9. Información de la fundación</summary>
-              <p>La fundación Social Deportiva BATTAN, su gerente y demás integrantes de la junta directiva tendrá su sede inicialmente en la Calle 19 No 6-46 - Duitama - Veterinaria Bigotes - Luis Arcadio Corredor Carrera 16 No. 12-24 - Segundo Piso Play House Cels. 314 2041925-313 306 3990</p>
-            </details>
-          </div>
-        </section>
+            {/* Información de la fundación */}
+            <section className="rifa-fundacion">
+              <h3 className="fundacion-title">Fundación Social Deportiva BATTA</h3>
+              <div className="fundacion-info">
+                <div>
+                  <p>Dirección: Calle 19 No 6-46, Duitama, Boyacá</p>
+                  <p>Oficina adicional: Carrera 16 No. 12-24, Segundo Piso Play House</p>
+                  <p>Contacto: 📞 314 2041925 – 313 306 3990</p>
+                </div>
+                <div className="fundacion-img">
+                  <Image
+                    src="/assets/galeria/profesor_luis.png"
+                    alt="Profesor Luis Arcadio Corredor"
+                    width={120}
+                    height={120}
+                  />
+                  <span>Profesor Luis Arcadio Corredor</span>
+                </div>
+              </div>
+            </section>
 
-        {/* Información de la fundación */}
-        <section className="rifa-fundacion">
-          <h3 className="fundacion-title">Fundación Social Deportiva BATTA</h3>
-          <div className="fundacion-info">
-            <div>
-              <p>Dirección: Calle 19 No 6-46, Duitama, Boyacá</p>
-              <p>Oficina adicional: Carrera 16 No. 12-24, Segundo Piso Play House</p>
-              <p>Contacto: 📞 314 2041925 – 313 306 3990</p>
-            </div>
-            <div className="fundacion-img">
-              <Image src="/assets/galeria/profesor_luis.png" alt="Profesor Luis Arcadio Corredor" width={120} height={120} />
-              <span>Profesor Luis Arcadio Corredor</span>
-            </div>
-          </div>
-        </section>
-
-        {/* Call to Action final */}
-        <section className="rifa-cta-final">
-          <p className="cta-text">💛 Al comprar tu bono apoyas a cientos de niños en su formación deportiva.</p>
-          <div className="cta-buttons">
-            <Link href="/rifa-solidaria/rifa">
-              <button className="rifa-btn principal">Participar en la Rifa</button>
-            </Link>
-            <Link href="/rifa-solidaria/cuotas">
-              <button className="rifa-btn secundario">Ya soy participante</button>
-            </Link>
-          </div>
-        </section>
+            {/* Call to Action final */}
+            <section className="rifa-cta-final">
+              <p className="cta-text">💛 Al comprar tu bono apoyas a cientos de niños en su formación deportiva.</p>
+              <div className="cta-buttons">
+                <Link href="/rifa-solidaria/rifa">
+                  <button className="rifa-btn principal">Participar en la Rifa</button>
+                </Link>
+                <Link href="/rifa-solidaria/cuotas">
+                  <button className="rifa-btn secundario">Ya soy participante</button>
+                </Link>
+              </div>
+            </section>
+          </section>
+        )}
       </main>
       <Footer />
     </div>

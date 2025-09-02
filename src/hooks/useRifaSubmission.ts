@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import { PDFDocument } from 'pdf-lib';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 interface RifaData {
+  rifa_id: string;
   nombre: string;
   cedula: string;
   telefono: string;
   email?: string;
-  cuotas_total: number;
-  cuota_valor: number;
-  es_apto: boolean;
+  cuotas: number;
+  precio: number;
   comprobante: File;
+  boleto_numero?: number;
+  rifa_nombre?: string;
 }
 
 export function useRifaSubmission() {
@@ -35,68 +36,54 @@ export function useRifaSubmission() {
       if (!data.comprobante) throw new Error('Debes adjuntar el comprobante de pago.');
       if (!data.comprobante.type.startsWith('image/')) throw new Error('El comprobante debe ser una imagen.');
 
-      // Insertar registro en la tabla
-      const { error: insertError } = await supabase
-        .from('participantes')
-        .insert([
-          {
-            nombre: data.nombre,
-            cedula: data.cedula,
-            telefono: data.telefono,
-            email: data.email || '',
-            cuotas_total: data.cuotas_total,
-            cuota_valor: data.cuota_valor,
-            fecha_registro: new Date().toISOString(),
-            es_apto: data.es_apto,
-          },
-        ]);
+      // Insertar solo el boleto seleccionado
+      if (!data.boleto_numero) throw new Error('Debes seleccionar un número de boleto.');
+      const boleto = {
+        rifa_id: data.rifa_id,
+        numero: data.boleto_numero,
+        precio: data.precio,
+        comprador_cedula: data.cedula,
+        comprador_correo: data.email || '',
+        comprador_telefono: data.telefono,
+        pagado: false,
+        created_at: new Date().toISOString(),
+      };
+      // Insertar boleto
+      const { data: boletoInsert, error: insertError } = await supabase.from('boletos').insert([boleto]).select();
       if (insertError) throw insertError;
-
-      // Crear PDF con la imagen
-      const imageBytes = await data.comprobante.arrayBuffer();
-      const pdfDoc = await PDFDocument.create();
-      let image;
-      if (data.comprobante.type === 'image/png') {
-        image = await pdfDoc.embedPng(imageBytes);
-      } else {
-        image = await pdfDoc.embedJpg(imageBytes);
+      const boletoId = boletoInsert && boletoInsert[0] ? boletoInsert[0].id : null;
+      if (!boletoId) throw new Error('No se pudo registrar el boleto.');
+      // Registrar pago inicial
+      const pago = {
+        boleto_id: boletoId,
+        monto: data.precio,
+        fecha_pago: new Date().toISOString(),
+        metodo: 'transferencia',
+        referencia: data.comprobante.name || '',
+      };
+      const { error: pagoError } = await supabase.from('pagos').insert([pago]);
+      if (pagoError) throw pagoError;
+      // Enviar correo de notificación con FormData para adjuntar el comprobante
+      try {
+        const formData = new FormData();
+        formData.append('nombre', data.nombre);
+        formData.append('documento', data.cedula);
+        formData.append('telefono', data.telefono);
+        formData.append('email', data.email || '');
+        formData.append('numero', String(data.boleto_numero));
+        formData.append('precio', String(data.precio));
+        formData.append('rifaNombre', data.rifa_nombre || '');
+        formData.append('comprobante', data.comprobante);
+        await fetch('/api/send-boleto-email', {
+          method: 'POST',
+          body: formData,
+        });
+      } catch (emailErr) {
+        // No interrumpe el flujo si el correo falla
+        console.error('Error enviando correo:', emailErr);
       }
-      const page = pdfDoc.addPage([image.width, image.height]);
-      page.drawImage(image, {
-        x: 0,
-        y: 0,
-        width: image.width,
-        height: image.height,
-      });
-      const pdfBytes = await pdfDoc.save();
-      // Convertir PDF a base64
-      const pdfBase64 = typeof window !== 'undefined' ? btoa(String.fromCharCode(...new Uint8Array(pdfBytes))) : '';
-      const pdfFileName = `${data.cedula}_comprobante.pdf`;
-
-      // Enviar WhatsApp con UltraMsg (adjuntando el PDF)
-      const whatsappBody = `🎉 ¡Hola ${data.nombre}!\n\nHemos recibido tu comprobante de pago para la cuota #${data.cuotas_total} de la Rifa Solidaria ✅.\n\n💵 Valor de la cuota: $${data.cuota_valor} COP\n\nGracias por tu apoyo 🙌. Una vez validemos tu pago, tu cuota quedará confirmada y podrás continuar con las siguientes cuotas.\n\n✨ ¡Mucha suerte en la rifa! 🎟️`;
-      const token = 'f3uxbqh66wxukqqi';
-      const instance = 'instance140154';
-      const url = `https://api.ultramsg.com/${instance}/messages/document`;
-      const params = new URLSearchParams({
-        token,
-        to: telefono,
-        caption: whatsappBody,
-        filename: pdfFileName,
-        document: pdfBase64,
-      });
-      const resp = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: params.toString(),
-      });
-      const respJson = await resp.json();
-      if (respJson.error) throw new Error('Error enviando WhatsApp: ' + JSON.stringify(respJson.error));
-
       setSuccess(true);
-  } catch (err: unknown) {
+    } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
       } else {
@@ -106,6 +93,5 @@ export function useRifaSubmission() {
       setLoading(false);
     }
   };
-
   return { loading, error, success, submitRifa };
 }
